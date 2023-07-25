@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block titulo %}{% endblock %} - Sistema</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/misestilos.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+</head>
+
+<body>
+    <div class="container mt-2">
+<h2 class="title1" >SISTEMA DE PRESTAMOS - ON LINE</h2>
+
+        <!-- Mensaje flash -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for categoria, message in messages %}
+                <div class="alert alert-{{categoria}}" role="alert">
+                    {{message}}
+                </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+
+        {% block contenido %}
+        {% endblock %}
+    </div>
+
+    <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+</body>
+
+</html>

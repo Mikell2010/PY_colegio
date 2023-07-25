@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block titulo %}Bienvenidos->Login Sistema Préstamos {% endblock %}
+
+{% block contenido %}
+{% include 'menu1.html'%}
+
+
+<h1>Usuario: {{datos.nombres}}  {{datos.apellido_p}}</h1>
+<div class="row mt-4">
+    <div class="offset-lg-2 col-lg-4 col-md-6 col-sm-12">
+        <h2 class="title">Ingreso al sistema</h2>
+        <form action="/ingreso" method="post">
+
+            <div class="mb-3">
+                <label for="exampleInputEmail2" class="form-label">Correo Electrónico</label>
+                <input type="email" class="form-control" id="exampleInputEmail2" aria-describedby="emailHelp" name="email" value="{{datos.email}}" readonly>
+                <div id="emailHelp" class="form-text">No compartas tu clave con nadie.</div>
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputPassword3" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" id="exampleInputPassword3" name="password">
+            </div>
+            <button type="submit" class="btn btn-primary">Entrar al Sistema!</button>
+        </form>
+    </div>
+</div>
+
+
+{% endblock %}

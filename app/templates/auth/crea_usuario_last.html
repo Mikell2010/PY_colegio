@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block titulo %}Bienvenidos->Login {% endblock %}
+
+{% block contenido %}
+{% include 'menu1.html' %}
+<h1>Usuario: {{datos.nombres}}  {{datos.apellido_p}}</h1>
+
+<div class="container-fluid"> 
+    <div class="col-lg-8 col-md-12 col-sm-20 cen">
+        <h2 class="title" >Creación de Password</h2>
+        <form action="/procesar_registro" method="post">
+
+            <div class="mb-3">
+                <label for="nombres" class="form-label">NOMBRES</label>
+                <input type="text" required class="form-control" id="nombres" name="nombres" value="{{datos.nombres}}">
+            </div>
+
+            <div class="mb-3">
+                <label for="apellido_p" class="form-label">APELLIDO PATERNO</label>
+                <input type="text" required class="form-control" id="apellido_p" name="apellido_p" value="{{datos.apellido_p}}">
+            </div>
+            <div class="mb-3">
+                <label for="apellido_m" class="form-label">APELLIDO MATERNO</label>
+                <input type="text" required class="form-control" id="apellido_m" name="apellido_m" value="{{datos.apellido_m}}">
+            </div>
+
+            
+            <div class="mb-3">
+                <label for="es_alumno" class="form-label">TIPO USUARIO</label>
+                <input type="text" required class="form-control" id="es_alumno" name="es_alumno" value="{{datos.es_alumno}}" readonly> 
+            </div>
+            
+
+            <div class="mb-3">
+                <label for="curso" class="form-label">CURSO</label>
+                <input type="text" required class="form-control" id="curso" name="curso" value="{{datos.curso}}">
+            </div>
+
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">EMAIL</label>
+                <input type="text" required class="form-control" id="email" name="email" value="{{datos.email}}" readonly> 
+            </div>
+
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">PASSWORD</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" name="password">
+        
+                <div id="emailHelp" class="form-text">No compartas la clave con nadie.</div> </div>
+            <div class="mb-3">
+                <label for="exampleInputPassword2" class="form-label">CONFIRMA PASSWORD</label>
+                <input type="password" class="form-control" id="exampleInputPassword2" name="confirm_password">
+            </div>
+            <button type="submit" class="btn btn-success">REGISTRATE</button>
+        </form>
+    </div>
+
+
+{% endblock %}

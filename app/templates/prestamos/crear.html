@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block titulo %}Create Job{% endblock %}
+
+{% block contenido %}
+{% include 'menu1.html'%}
+
+<h1>Add  A Job</h1>
+
+
+
+<form action="/procesar_job" method="post">
+    <div class="row">
+        <div class="col-sm-12 col-md-6 col-lg-4">
+            <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" required class="form-control" id="title" name="title">
+            </div>
+
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea class="form-control" id="description" rows="3" name="description"></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label for="location" class="form-label">Location</label>
+                <textarea class="form-control" id="location" rows="3" name="location"></textarea>
+            </div>
+        </div>
+    
+        <div class="d-flex" role="search">
+            <button type="submit" class="btn btn-success">Submit</button>
+        </div>
+    </div>
+</form>
+
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block titulo %}ENTREGA Y DEVOLUCIONES DE ACTIVOS{% endblock %}
+
+{% block contenido %}
+{% include 'menu1.html'%}
+
+
+<h1>Bienvenido, {{session.usuario.nombres}} {{session.usuario.apellido_p}} {{session.usuario.apellido_m}}</h1>
+
+<div class="container-fluid">
+    <div class="col-md-7">
+        <table class="table table-striped table-hover table-sm">
+            <thead>
+                <th>N° Solicitud</th>
+                <th>Nombre</th>
+                <th>Código</th>
+                <th>Nombre</th>
+                <th>fecha solicitud</th>
+                <th> Entregar</th>
+                <th> Recibir</th>
+                <th> Eliminar Orden</th>
+                <th> Desbloquear</th>
+            </thead>
+            <tbody>
+                {% for trabajo in activos %}
+                <tr>
+                    <td>{{trabajo['prestamos.id'] }}</td>
+                    <td class="chica"> {{trabajo.nombres}} {{trabajo.apellido_p}}</td>
+                    <td class="chico">{{trabajo.codigo}}</td>
+                    <td class="chiconormal">{{trabajo.nombre}}</td>
+                    <td class="chiconormal">{{trabajo.updated_at.strftime('%d/%m/%Y')}}</td>
+                    <td>
+                        {% if trabajo.vigente == '1' and trabajo.bloqueo == '0' %}
+                            <a href="/prestamos/entregar/{{ trabajo.id }}/" type="submit" class="btn btn-sm btn-primary">Entregar</a>             
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if trabajo.vigente == '2' %}
+                            <a href="/prestamos/devolver/{{ trabajo.id }}/" type="submit" class="btn btn-sm btn-primary">Recibir</a>
+                            <a href="/prestamos/bloquear/{{ trabajo.id }}/" type="submit" class="btn btn-sm btn-success">Recibir/Bloquear</a>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if trabajo.vigente == '1' %}
+                        <a href="/prestamos/eliminar/{{ trabajo.id }}/" type="submit" class="btn btn-sm btn-danger">Eliminar Orden</a>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if  trabajo.bloqueo == '3' %}
+                            <a href="/prestamos/desbloquear/{{ trabajo.id }}/" type="submit" class="btn btn-sm btn-warning">Desbloquear</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

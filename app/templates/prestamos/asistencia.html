@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block titulo %}ASISTENCIA CON RECONOCIMIENTO FACIAL{% endblock %}
+
+{% block contenido %}
+{% include 'menu1.html'%}
+
+<h1>Bienvenido, {{session.usuario.nombres}} {{session.usuario.apellido_p}} {{session.usuario.apellido_m}}</h1>
+
+<div class="container-fluid">
+    <div class="col-md-7">
+        <label for="cars">Tipo de Gráfico:</label>
+        <select id="grafico" name="grafico">
+            <option value="linea">linea</option>
+            <option value="barras">barras</option>
+            <option value="torta">torta</option>
+            <option value="mixto">mixto</option>
+        </select>
+        <option value="">Selecciona una Familia</option>
+        {% for familia in familias %}
+        <option value={{familia.nombre}}>{{familia.nombre }}</option>
+        {% endfor %}
+
+
+        <form action="/action_page.php">
+            <input list="browsers">
+            <datalist id="browsers">
+                <option value="Todas">
+                <option value="Compuatación">
+                <option value="Instrumentos">
+                <option value="Audio">
+                <option value="Herramientas">
+            </datalist>
+        </form>
+
+
+        <form action="/graficar/" method="post" class="needs-validation bg-ligh"></form>
+        <label for="birthday">Fecha Inicio:</label>
+        <input type="date" id="f_inicio" name="f_inicio">
+        <label for="birthday">Fecha Inicio:</label>
+        <input type="date" id="f_termino" name="f_termino">
+        <button onclick="redirectToChart()">Ir al gráfico</button>
+        <div class="col-md-12">
+            <input class="btn btn-outline-primary" type="submit" value="GENERA GRAFICO">
+
+    </div>
+</div>
+{% endblock %}
+<script>
+    function redirectToChart() {
+        window.location.href = "/prestamos/graficar";
+    }
+</script>

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block titulo %}Bienvenidos->Login {% endblock %}
+
+{% block contenido %}
+    <div class="offset-lg-2 col-lg-4 col-md-6 col-sm-12">
+        <h2 class="title">Ingreso al sistema</h2>
+        <form action="/procesar_login" method="post">
+
+            <div class="mb-3">
+                <label for="exampleInputEmail2" class="form-label">Correo Electrónico</label>
+                <input type="email" class="form-control" id="exampleInputEmail2" aria-describedby="emailHelp" name="email">
+                <div id="emailHelp" class="form-text">Ingresa tu correo institucional (SIP).</div>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Entrar al Sistema!</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

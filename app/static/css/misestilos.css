@@ -1,0 +1,120 @@
+.border-5 {
+    border: 5px solid black;
+    padding: 50px;
+}
+
+.title {
+    color: blue;
+    margin-bottom: 25px;
+
+}
+
+.title1 {
+    color: rgb(191, 27, 27);
+    margin-bottom: 25px;
+}
+
+.tit {
+    color: rgb(49, 12, 211);
+
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.det {
+    color: rgb(225, 26, 26);
+
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.rojo {
+    color: rgb(225, 26, 26);
+
+    font-weight: bold;
+    font-size: 30px;
+    text-decoration:tomato
+}
+
+.rojoblink{
+    color: rgb(225, 26, 26);
+    text-align: center;
+    font-weight: bold;
+    font-size: 30px;
+    text-decoration:tomato;
+    animation: mymove 2s infinite alternate;
+}
+
+.chica {
+    color: rgb(56, 23, 221);
+
+    font-weight: bold;
+    font-size: 14px;
+    text-decoration:tomato
+}
+
+.chico {
+
+    font-weight: bold;
+    font-size: 14px;
+
+}
+.chiconormal {
+
+    font-weight:normal;
+    font-size: 14px;
+
+}
+
+@keyframes mymove {
+    from {opacity:0;}
+    to {opacity: 1;}
+}
+
+#videoContainer {
+    border: 2px solid black;
+    display: inline-block;
+}
+
+#captureButton {
+    display: none;
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  
+  .modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }

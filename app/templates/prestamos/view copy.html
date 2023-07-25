@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block titulo %}DATALLE{% endblock %}
+
+{% block contenido %}
+{% include 'menu1.html'%}
+
+<h1>Usuario: {{session.usuario.first_name}}  {{session.usuario.last_name}}</h1>
+<div class="row mt-5">
+    <div class="col-9"><h3>TITLE: {{trabajo.title}}</h3></div>
+</div>
+
+
+<div class="border-5">
+    <div class="row mt-3 g-3 align-items-center">
+        <div class="col-3">
+            <p class="tit">Description</p>
+        </div>
+        <div class="col-9">
+            <p class="det">{{trabajo.description}}</p>
+        </div>
+        <div class="col-3">
+            <p class="tit">Location:</p>
+        </div>
+        <div class="col-9">
+            <p class="det">{{trabajo.location}}</p>
+        </div>
+        <div class="col-3">
+            <p class="tit">Posted by:</p>
+        </div>
+        <div class="col-9">
+            <p class="det">{{trabajo.first_name}} {{trabajo.last_name}}</p>
+        </div>
+        <div class="col-3">
+            <p class="tit">Posted on:</p>
+        </div>
+        <div class="col-9">
+            <p class="det">{{trabajo.created_at.strftime('%B %d %Y')}} </p>
+        </div>
+    </div>
+    
+    <div class="d-flex" role="search">
+        <a class="btn btn-btn btn-success" href="/job/asignar/{{trabajo.id}}">Add To My Job</a>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+{% block titulo %}SOLICITUD{% endblock %}
+
+{% block contenido %}
+
+
+
+<h3>Bienvenido(a), {{session.usuario.nombres}} {{session.usuario.apellido_p}} {{session.usuario.apellido_m}} {{session.usuario.bloqueo }}</h3>
+    {% if  session.usuario.es_alumno == '1' %}
+    <td>Perfil : Alumno</td>
+    {% else %}
+    <td>Perfil : Administrativo</td>
+    {% endif %}
+
+    {% include 'menu.html' %}
+<div class="container-fluid">
+
+    <div class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="text-center col-md-6 mx-auto"> <i class="fa d-block fa-bullseye fa-5x mb-4 text-info"></i>
+                    <h2>INGRESO SOLICITUDES</h2>
+                    <p class="lead">Esta plataforma permitirá optimizar los recursos que están disponibles para ti.
+                        Cuidarlos es impotante, como también respetar la fecha de entrega para otros alumnos puedan
+                        también hacer uso de ellos.<br><b>
+                            <H6>SI ENCUENTRAS UN ARTICULO EN PRESTAMO,&nbsp;<br>POR FAVOR
+                                ENTREGALO A LOS ENCARGADOS</H6>
+                        </b></p>
+                </div>
+                <div class="col-md-6">
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <iframe width="400" height="225"
+                            src="https://www.youtube.com/embed/2smztYthumk?controls=0?mute=1?autoplay=1"
+                            title="Sistema Prestamos" frameborder="0"
+                            allow="accelerometer; autoplay; muted;  playinline;  clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen></iframe>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 order-md-1">
+                <h4 class="mb-3 text-center"><b class="bg-ligh">RESERVA Y RETIRA </b></h4>
+
+                <!-- Formulario -->
+                <form action="/prestamos/reservar/" method="post" class="needs-validation bg-ligh">
+                    {% if  session.usuario.bloqueo == '3' %}
+                    <h1 class="rojoblink">Estas Bloqueado </h1>
+                        <h1 class="rojoblink">  para solicitar, debes entregar pedidos pendientes </h1>
+                    {% else %}
+                        <!-- Sección Activos -->
+                        <div class="col-md-4 mb-3">
+                            <label for="selectActivos">DISPONIBLES</label>
+                            <select name="activos_id" class="custom-select d-block w-100" id="selectActivos" required>
+                                <option value="">Selecciona un Activo</option>
+                                {% for activo in disponibles %}
+                                <option value={{activo.id}}>{{activo.id}} {{ activo.nombre }} {{activo.modelo}}</option>
+                                {% endfor %}
+                            </select>
+                            <div class="invalid-feedback">Selecciona.</div>
+                        </div>
+
+                        <div class="col-md-3 mb-3"> <label for="zip"></label>
+                        
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <input class="btn btn-outline-primary" type="submit" value="RESERVAR">
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </form>
+                <hr class="mb-4">
+                
+                    </div>
+                    <h4 class="mb-3 text-center"><b class="bg-ligh">TUS PRESTAMOS </b></h4>
+                    <hr class="mb-4">
+                    <table class="table table-striped table-hover table-sm">
+                        <thead>
+                            <tr class="title1">N° Solicitud</tr>
+                            <th>Código</th>
+                            <th>N° identificación</th>
+                            <th>nombre</th>
+                            <th>Modelo</th>
+                            <th>Fecha de Entrega</th>
+                        </thead>
+                        <tbody>
+                        
+                            {% for trabaj in mispedidos %}
+                            <tr>
+                                <td>{{trabaj.codigo}}</td>
+                                <td>{{trabaj.id}}</td>                                
+                                <td>{{trabaj.nombre}}</td>
+                                <td>{{trabaj.modelo}}</td>                                
+                                {% if trabaj.fecha_entrega %}
+                                <td>{{trabaj.fecha_entrega.strftime('%d/%m/%Y')}}</td>
+                                {% else %}
+                                <td>RESERVADO</td>
+                                {% endif %}
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <hr class="mb-4">
+                    <hr class="mb-4">
+                
+                    <hr class="mb-4">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="py-5 text-muted text-center">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-12 my-4">
+                <p class="mb-1">© 2023 Arturo Matte Larrín</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JavaSctipt -->
+<script>
+    // Captura el enlace de búsqueda mediante su id
+    const buscarBtn = document.getElementById('buscar-btn');
+
+    // Agrega un evento de clic al enlace de búsqueda
+    buscarBtn.addEventListener('click', function(event) {
+        // Evita que se realice la acción predeterminada del enlace (#)
+        event.preventDefault();
+
+        // Captura el valor seleccionado por el usuario en el select
+        const selectFamilias = document.getElementById('selectFamilias');
+        const valorSeleccionado = selectFamilias.value;
+
+        // Redirige al usuario a una nueva página con el valor seleccionado
+        if (valorSeleccionado) {
+            window.location.href = "/buscar_activos_por_familia/" + valorSeleccionado;
+        } else {
+            // Muestra un mensaje de error o realiza otra acción si no se ha seleccionado ninguna opción
+            console.log("Selecciona una familia antes de hacer clic en BUSCAR.");
+        }
+    });
+</script>
+{% endblock %}

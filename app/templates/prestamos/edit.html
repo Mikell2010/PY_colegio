@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block titulo %}Create Job{% endblock %}
+
+{% block contenido %}
+{% include 'menu1.html'%}
+
+<h1>Edit Your Job Posting</h1>
+{{datos.location}}
+{{datos.title}}
+
+
+
+<form action="/edit/{{datos.id}}" method="post">
+    <div class="row">
+        <div class="col-sm-12 col-md-6 col-lg-4">
+            <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" required class="form-control" id="title" name="title" value="{{datos.title}}" >
+            </div>
+
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <input class="form-control" id="description" rows="3" name="description" value="{{datos.description}}">
+            </div>
+
+            <div class="mb-3">
+                <label for="location" class="form-label">Location</label>
+                <input class="form-control" id="location" rows="3" name="location" value="{{datos.location}}">
+            </div>
+        </div>
+    
+
+            <button type="submit" class="btn btn-success">Updated</button>
+        </div>
+    </div>
+</form>
+
+{% endblock %}
