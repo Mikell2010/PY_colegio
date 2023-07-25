@@ -13,6 +13,8 @@ opencv-python = "*"
 chartjs = "*"
 canvas = "*"
 mysql-connector-python = "*"
+matplotlib = "*"
+pandas = "*"
 
 [dev-packages]
 

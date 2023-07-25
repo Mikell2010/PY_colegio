@@ -15,38 +15,77 @@
             <option value="torta">torta</option>
             <option value="mixto">mixto</option>
         </select>
-        <option value="">Selecciona una Familia</option>
-        {% for familia in familias %}
-        <option value={{familia.nombre}}>{{familia.nombre }}</option>
-        {% endfor %}
+     
+
+<!-- Formulario -->
+<form action="/prestamos/graficar" method="post" class="needs-validation bg-ligh">
+    {% if  session.usuario.bloqueo == '3' %}
+    <h1 class="rojoblink">Estas Bloqueado </h1>
+        <h1 class="rojoblink">  para solicitar, debes entregar pedidos pendientes </h1>
+    {% else %}
+        <!-- Sección Activos -->
+        <div class="col-md-4 mb-3">
+            <option value="">Selecciona una Familia</option>
+            <div class="col-md-4 mb-3">
+                <label for="selectActivos">DISPONIBLES</label>
+                <select name="activos_id" class="custom-select d-block w-100" id="selectActivos" required>
+                    <option value="">Selecciona una Familia</option>
+                    {% for familia in familias %}
+                    <option value={{familia.id}}>{{familia.id}} {{ familia.nombre }}</option>
+                    {% endfor %}
+                </select>
+                <div class="invalid-feedback">Selecciona.</div>
+            </div>
+
+            
+            <div class="invalid-feedback">Selecciona.</div>
+        </div>
+
+        <div class="col-md-3 mb-3"> <label for="zip"></label>
+        
+            <div class="row">
+                <div class="col-md-12">
+                    <input class="btn btn-outline-primary" type="submit" value="GRAFICAR">
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</form>
 
 
-        <form action="/action_page.php">
+        <!-- <div class="form-group">
+            <label for="fecha">Fecha:</label>
+            <input type="date" class="form-control" id="fecha" name="fecha">
+        </div>
+
+        <form action="/graficar" method="post" class="needs-validation bg-ligh">
             <input list="browsers">
             <datalist id="browsers">
-                <option value="Todas">
-                <option value="Compuatación">
-                <option value="Instrumentos">
-                <option value="Audio">
-                <option value="Herramientas">
+                <option value="{{Todas}}">Todas
+                <option value="{{Computación}}">Computación
+                <option value="{{Instrumentos}}">Instrumentos
+                <option value="{{Audio}}">Audio
+                <option value="{{Herramientas}}">Herramientas
             </datalist>
-        </form>
-
-
-        <form action="/graficar/" method="post" class="needs-validation bg-ligh"></form>
-        <label for="birthday">Fecha Inicio:</label>
-        <input type="date" id="f_inicio" name="f_inicio">
-        <label for="birthday">Fecha Inicio:</label>
-        <input type="date" id="f_termino" name="f_termino">
-        <button onclick="redirectToChart()">Ir al gráfico</button>
-        <div class="col-md-12">
-            <input class="btn btn-outline-primary" type="submit" value="GENERA GRAFICO">
+            <label for="f_inicio">Fecha Inicio:</label>
+            <option value={{f_inicio}}>f_inicio
+            <input type="date" id="f_inicio" name="f_inicio">
+            <label for="F_termino">Fecha Término:</label>
+            <input type="date" id="f_termino" name="f_termino">
+            <label for="anio">año:</label>
+            <option value={{anio}}>f_inicio
+            <div class="col-md-12">
+                <a class="btn btn-outline-success" href="/graficar">Graficar</a>
+            </div>
+            <div class="col-md-12">
+                <input class="btn btn-outline-primary" type="submit" value="RESERVAR">
+            </div>
+        </form> -->
 
     </div>
-</div>
-{% endblock %}
-<script>
-    function redirectToChart() {
-        window.location.href = "/prestamos/graficar";
-    }
-</script>
+    {% endblock %}
+    <!-- <script>
+        function redirectToChart() {
+            window.location.href = "/graficar";
+        }
+    </script> -->

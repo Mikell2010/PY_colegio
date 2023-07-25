@@ -5,6 +5,7 @@ from app import app
 from app.controllers import login
 from app.controllers import base
 from app.controllers import prestamos
+from app.controllers import familias
 
 
 if __name__=="__main__":

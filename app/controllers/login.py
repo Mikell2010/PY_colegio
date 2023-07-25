@@ -78,8 +78,8 @@ def ingreso():
         if  str(admin) == '0':             # la consulta debe der _ si es_alumno= "5" el cual es el parametro para los administrativos
             return redirect ('/prestamos/')
         if  str(admin) == '10':             # la consulta debe der _ si es_alumno= "5" el cual es el parametro para los administrativos
-            return render_template ('prestamos/asistencia.html/')
-            #return redirect ('/asistencia/')
+            #return render_template ('prestamos/asistencia.html/')
+            return redirect ('/prestamos/asistencia/')
 
     else:
         flash('Existe un error en tu correo o contraseña', 'danger')

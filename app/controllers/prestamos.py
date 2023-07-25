@@ -117,7 +117,7 @@ def asignar():
     
     Prestamos.save_reserva(data) 
     Prestamos.cambio_de_estado_reserva(data2)
-    flash("reservaste con Exito", "danger")
+    flash("reservaste con Exito", "success")
     return redirect('/dashboard/')
 
 #controladores para Gestionar (ADMINISTRATIVOS)
@@ -251,16 +251,16 @@ def desbloquear(id):
         return redirect('/login')
     #print(request.form[activo.id])
 
-  
+
     data2 = {
         'id': id,
         'estado' : 0
     }
 
     print(f"DATA: {data2}")
-   
+
     Prestamos.save_desbloquea(data2) 
-  
+
     flash("Recepcionaste con Exito", "info")
     return redirect('/prestamos/')
 
@@ -271,19 +271,20 @@ def desbloquear(id):
 #________________________________________________________________________________________________________________________________
 
 
-""" controlador que permite devolver un activo prestado
+#   controlador que permite devolver un activo prestado
 #   recibe desde gestiona.html el valor  prestamos.id 
 #   Esto se presenta en la vista de adminsitrativo usuario_es_alunmno= '0' 
 #   los alumnos tienen un '1'  la sesion del administrativo 
 
-@app.route('/prestamos/asistencia/<int:id>/')
-def graficar_asi(id):
-    # "" Permite realizar el Registro de Devolución del Activo.""
+@app.route('/prestamos/asistencia/')
+def para_asistencia():
+    # "" Permite enviar datos Famila a renderizar a asistencia.html""
             
     # Proteger ruta "/prestamos/asistencia/"
     if 'usuario' not in session:
         return redirect('/login')
 
+    """
     data = {
         'usuario_id': session['usuario']['usuario_id'],
         'tipo_grafico': 1,
@@ -296,28 +297,43 @@ def graficar_asi(id):
         'id': id,
         'estado' : 0
     }
-    Prestamos.get_datos_grafico(data) 
-    Activo.cambio_de_estado_reserva(data2)
+    """
+    data = {
+        'id': id,
+        'nombre': " "
+    }
+    data = Familia.obtener_todas_las_familias () 
+    print(" imprime la data")
+    print(f"DATA: {data}")
     flash("Recepcionaste con Exito", "info")
-    return redirect('/prestamos/')
+    return render_template('/prestamos/asistencia.html',familias=data)
 
 
-@app.route('/graficar/',  methods=[ 'GET'], )
+@app.route('/prestamos/graficar/', methods=['POST'])
 def get_chart_data():
-   
-    print("cursor = connection.cursor()")
+    print("metodo form.request")
+    print("POST menu: ", request.form)
+    data = {
+        'id': id,
+        'estado' : 0
+    }
+    return render_template('prestamos/graficoduro.html',data=data)
+    #redirect('prestamos/asistencia')                 
+
+""" 
+    # print("cursor = connection.cursor()")
 
     # Realizar la consulta a la base de datos
-    cursor.execute(
+    # cursor.execute(
                     """
                    # SELECT * 
-                   # FROM prestamos
-                   # WHERE fecha_entrega > '2023-01-01' AND fecha_entrega < '2023-07-22';")
-                   # """
+    # FROM prestamos
+    # WHERE fecha_entrega > '2023-01-01' AND fecha_entrega < '2023-07-22';")
+    # """
 
 
-   # )
-
+    # )
+""" 
 data = [
     ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"],
     [45, 65, 34, 33, 22, 44, 22 ,33, 44, 55, 32, 66],   # Valores para enero
@@ -333,14 +349,16 @@ data = [
     [12, 21, 35, 53, 44, 22, 33, 44, 55, 32, 55, 73],
     [45, 65, 34, 33, 22, 44, 22 ,33, 44, 55, 32, 66],]
 
-@app.route('/graficar/',  methods=[ 'GET'], )
-def get_chart_data():
+    #@app.route('/graficar',  methods=['POST '], )
 
-    data = cursor.fetchall()
+    #def get_chart_data():
+
+        
+    # data = cursor.fetchall()
 
     # Cerrar la conexión a la base de datos
-    cursor.close()
-    connection.close()
+    # cursor.close()
+    # connection.close()
     data2 = {
         'anio': request.form['anio'],
         'feha_inicio': request.form['feha_inicio'],
@@ -352,8 +370,8 @@ def get_chart_data():
     }
 
     # Preparar los datos para el gráfico
-    x_values =  Activo.et_historico_por_familia(data2)
- 
+    x_values =  Activo.get_historico_por_familia(data2)
+
     x_values = [row[0] for row in data] # obtiene los meses del año
 
     largo= len(data) # obtiene el tamaño del arreglo de data, es decir la cantidad de familias que hay, en nuestro caso 3
@@ -361,8 +379,8 @@ def get_chart_data():
 
 
     # Renderizar el gráfico utilizando una plantilla HTML
-    return render_template('graficoprueba.html', x_values=x_values, y_values=y_values)
-
+return render_template('graficoprueba.html', x_values=x_values, y_values=y_values)
+""" 
 
 
 active_routes = []

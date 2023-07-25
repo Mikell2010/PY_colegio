@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>Charthed----</h1>
+    <canvas id=' myChart '> </canvas >
+    <script>
+        var data = [
+            ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'],
+            [45, 65, 34, 33, 22, 44, 22 ,33, 44, 55, 32, 66],   // Valores para enero
+            [32, 22 ,33, 44, 55, 32, 53, 44, 55, 32, 43, 54],   // Valores para febrero
+            [12, 21, 35, 53, 44, 22, 33, 44, 55, 32, 55, 73],
+
+        ];
+        var meses = data[0];
+        var valores = data.slice(1);
+
+        // Crear un contexto para el gráfico
+        var ctx = document.getElementById('myChart').getContext('2d');
+
+        // Crear la configuración del gráfico
+        var chartConfig = {
+            type: 'line',
+            data: {
+                labels: meses,
+                datasets: []
+            },
+            options: {
+                responsive: true,
+                title: {
+                    display: true,
+                    text: 'Valores Mensuales'
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        };
+
+        // Agregar las series al gráfico
+        for (var i = 0; i < valores.length; i++) {
+            var dataset = {
+                label: 'Familia ' + (i + 1),
+                borderColor: 'rgb(75, 192, 192)',
+                data: valores[i]
+            }
+            chartConfig.data.datasets.push(dataset);
+        }
+
+        // Crear el gráfico
+        new Chart(ctx, chartConfig);
+    </script>
+</body>
+</html>
