@@ -5,25 +5,27 @@
 </head>
 <body>
     <canvas id="myChart"></canvas>
+    <script>      
+        var data = {{ fa_anio | tojson }};
 
-    <script>
-        var data = [
-            ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"],
-            [45, 65, 34, 33, 22, 44, 22 ,33, 44, 55, 32, 66],   // Valores para enero
-            [32, 22 ,33, 44, 55, 32, 53, 44, 55, 32, 43, 54],   // Valores para febrero
-            [12, 21, 35, 53, 44, 22, 33, 44, 55, 32, 55, 73],
-            
-        ];
+        var tip = {{ paso.grafico | tojson }};
+    
+        console.log(JSON.stringify(data)) 
+        console.log(JSON.stringify(tip))
 
         var meses = data[0];
         var valores = data.slice(1);
+        console.log("Valor de data:", data);
+        console.log("Valor de tip:", tip);
+        console.log("Valor de meses:", meses);
+        console.log("Valor de valores:", valores);
 
         // Crear un contexto para el gráfico
         var ctx = document.getElementById('myChart').getContext('2d');
 
         // Crear la configuración del gráfico
         var chartConfig = {
-            type: 'radar',
+            type: tip,   
             data: {
                 labels: meses,
                 datasets: []
