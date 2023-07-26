@@ -98,6 +98,9 @@ class Prestamos:
         CAMBIA EL ESTADO EN EL REGISTRO DE PRESTAMO DEJANDOLO EN MODO DE ENTREGADO (2) 
         Opcion solo para  ADMINISTRATIVO
         Permite cambiar de estado un préstamo en la base de datos.
+
+        Parámetros:
+            - data: contiene el id del activo y el id del usuario.
         """
 
         sql = """
@@ -113,8 +116,15 @@ class Prestamos:
     
     @classmethod
     def save_recibe(cls, data):
-        """ MODIFICA EL ESTADO DEL ACTIVO Y AGREGA DATOS AL REGISTRO DEL PRESTAMO, AL MOMENTO DE RECIBIR EL ACTIVO 
-         este modulo se ocupa solo para los administrativos """
+        """
+        MODIFICA EL ESTADO DEL ACTIVO Y AGREGA DATOS AL REGISTRO DEL PRESTAMO,
+        AL MOMENTO DE RECIBIR EL ACTIVO.
+        Este módulo se ocupa solo para los administrativos.
+
+        Parámetros:
+            - data: contiene el id del usuario, estado del activo y el id del
+            activo.
+        """
 
         sql = """
         UPDATE prestamos SET
@@ -123,27 +133,33 @@ class Prestamos:
             observacion = "sin observacion",
             fecha_recepcion = NOW(),
             updated_at = NOW()
-        WHERE activos_id =  %(id)s; 
+        WHERE activos_id = %(id)s; 
         """        
         return connectToMySQL(os.getenv("BASE_DE_DATOS")).query_db(sql, data)
     
-    # MODIFICA EL ESTADO Y AGREGA DATOS AL REGISTRO DEL PRESTAMO, AL MOMENTO DE RECIBIR EL ACTIVO
-    # este modulo se ocupa solo para los administrativos
-    # bloqueo=0 (usuario puede solicitar)  bloqueo=3 (usuario no puede solictar)
+
     @classmethod
     def save_bloquea(cls, data):
+        """
+        MODIFICA EL ESTADO Y AGREGA DATOS AL REGISTRO DEL PRÉSTAMO, AL MOMENTO
+        DE RECIBIR EL ACTIVO.
+        Este módulo se ocupa solo para los administrativos.
+
+        Estados de bloqueo:
+
+            - 0: usuario puede solicitar
+            - 3: usuario no puede solictar
+        """
         
         sql = """
         UPDATE db_prestamos.usuarios
-        SET bloqueo = '3'
+        SET bloqueo = %(estado)s
         WHERE id = (
             SELECT usuario_id
             FROM db_prestamos.prestamos
             WHERE activos_id = %(id)s
         );
         """
-        
-
         return connectToMySQL(os.getenv("BASE_DE_DATOS")).query_db(sql, data)
     
 
@@ -187,13 +203,15 @@ class Prestamos:
 # SELECCIONA TODOS PRESTAMOS HISTORICOS POR CONTANDO POR MES Y POR FAMILIA EN UN AÑO DEL SISTEMA
 # en desarrollo!
     @classmethod
-    def get_historico_por_familia(cls):   # Recibe data
+    def get_historico_por_familia(cls,data):   # Recibe data
         ##    %(id)s
+        print(" imprime la anio")
+        print(data)
+        print(f"DATA: %(anio)s")
+        
         sql = """
-            SELECT *
-            FROM activos
-            
-            EXTRACT(YEAR FROM p.fecha_entrega) AS agno,
+            SELECT 
+            EXTRACT(YEAR FROM p.fecha_entrega) AS anio,
             EXTRACT(MONTH FROM p.fecha_entrega) AS mes,
             f.id AS familia_id,
             f.nombre AS nombre_familia,
@@ -201,7 +219,8 @@ class Prestamos:
             FROM prestamos p
             INNER JOIN activos a ON p.activos_id = a.id
             INNER JOIN familias f ON a.familia_id = f.id
+            WHERE EXTRACT(YEAR FROM p.fecha_entrega) = '2023'  
             GROUP BY EXTRACT(YEAR FROM p.fecha_entrega), EXTRACT(MONTH FROM p.fecha_entrega), f.id, f.nombre
-            ORDER BY agno, mes, familia_id;
+            ORDER BY anio, mes, familia_id;
         """
         return connectToMySQL(os.getenv("BASE_DE_DATOS")).query_db(sql)         

@@ -7,85 +7,61 @@
 <h1>Bienvenido, {{session.usuario.nombres}} {{session.usuario.apellido_p}} {{session.usuario.apellido_m}}</h1>
 
 <div class="container-fluid">
-    <div class="col-md-7">
-        <label for="cars">Tipo de Gráfico:</label>
-        <select id="grafico" name="grafico">
-            <option value="linea">linea</option>
-            <option value="barras">barras</option>
-            <option value="torta">torta</option>
-            <option value="mixto">mixto</option>
-        </select>
-     
-
-<!-- Formulario -->
-<form action="/prestamos/graficar" method="post" class="needs-validation bg-ligh">
-    {% if  session.usuario.bloqueo == '3' %}
-    <h1 class="rojoblink">Estas Bloqueado </h1>
-        <h1 class="rojoblink">  para solicitar, debes entregar pedidos pendientes </h1>
-    {% else %}
-        <!-- Sección Activos -->
-        <div class="col-md-4 mb-3">
-            <option value="">Selecciona una Familia</option>
-            <div class="col-md-4 mb-3">
-                <label for="selectActivos">DISPONIBLES</label>
-                <select name="activos_id" class="custom-select d-block w-100" id="selectActivos" required>
-                    <option value="">Selecciona una Familia</option>
-                    {% for familia in familias %}
-                    <option value={{familia.id}}>{{familia.id}} {{ familia.nombre }}</option>
-                    {% endfor %}
-                </select>
-                <div class="invalid-feedback">Selecciona.</div>
-            </div>
-
-            
-            <div class="invalid-feedback">Selecciona.</div>
-        </div>
-
-        <div class="col-md-3 mb-3"> <label for="zip"></label>
-        
+    <div class="col-md-12">
+        <!-- Formulario -->
+        <form action="/prestamos/graficar" method="post" class="needs-validation bg-ligh">
             <div class="row">
-                <div class="col-md-12">
-                    <input class="btn btn-outline-primary" type="submit" value="GRAFICAR">
+                {% if session.usuario.bloqueo == '3' %}
+                <h1 class="rojoblink">Estas Bloqueado </h1>
+                <h1 class="rojoblink"> para solicitar, debes entregar pedidos pendientes </h1>
+                {% else %}
+                <div class="col-sm-12 col-md-8 col-lg-6">
+                    <label for="tipos">Tipo de Gráfico:</label>
+                    <select id="grafico" name="grafico">
+                        <option value="line">LINEAS</option>
+                        <option value="bar">BARRAS</option>
+                        <option value="radar">RADAR</option>
+                    </select>
+                    <label class="custom-select d-block w-300" for="yearInput">Selecciona una o todas las familias</label>
+                    <select name="familia_id" class="custom-select d-block w-300" id="selectActivos">
+                        <option value="">Todas las Familias</option>
+                        {% for familia in familias %}
+                        <option value="{{ familia.id }}"> {{ familia.nombre }}</option>
+                        {% endfor %}
+                    </select>
+                        <div class="col-sm-12 col-md-6 col-lg-4">
+                        
+                            <label class="custom-select d-block w-300" for="yearInput">Selecciona un año:</label>
+                            <input type="number" id="yearInput" name="anio"  max="2025" min="2022">
+                        </div>
+                        <div class="row">
+                            <label for="fecha_inicio" class="form-label">Fecha Inicio</label>
+                            <input type="date" class="form-control" id="fecha_inicio" name="fecha_inicio">
+                        </div>
+                        <div class="row col-md-12">
+                            <label for="fecha_termino" class="form-label">Fecha Término</label>
+                            <input type="date" class="form-control" id="fecha_termino" name="fecha_termino">
+                            
+                        </div>
+        
+                         
+                </div>
+                {% endif %}
+                
+                    <button type="submit" class="btn btn-success">Graficar</button>
                 </div>
             </div>
-        </div>
-    {% endif %}
-</form>
+        </form>
+        
 
-
-        <!-- <div class="form-group">
-            <label for="fecha">Fecha:</label>
-            <input type="date" class="form-control" id="fecha" name="fecha">
-        </div>
-
-        <form action="/graficar" method="post" class="needs-validation bg-ligh">
-            <input list="browsers">
-            <datalist id="browsers">
-                <option value="{{Todas}}">Todas
-                <option value="{{Computación}}">Computación
-                <option value="{{Instrumentos}}">Instrumentos
-                <option value="{{Audio}}">Audio
-                <option value="{{Herramientas}}">Herramientas
-            </datalist>
-            <label for="f_inicio">Fecha Inicio:</label>
-            <option value={{f_inicio}}>f_inicio
-            <input type="date" id="f_inicio" name="f_inicio">
-            <label for="F_termino">Fecha Término:</label>
-            <input type="date" id="f_termino" name="f_termino">
-            <label for="anio">año:</label>
-            <option value={{anio}}>f_inicio
-            <div class="col-md-12">
-                <a class="btn btn-outline-success" href="/graficar">Graficar</a>
-            </div>
-            <div class="col-md-12">
-                <input class="btn btn-outline-primary" type="submit" value="RESERVAR">
-            </div>
-        </form> -->
+        
 
     </div>
     {% endblock %}
-    <!-- <script>
-        function redirectToChart() {
-            window.location.href = "/graficar";
+    <script>
+        function val_fam() {
+            var selectElement = document.getElementById('selectActivos');
+            var selectedValue = selectElement.value;
+            activos_id = selectedValue !== '' ? selectedValue : '500';
         }
-    </script> -->
+    </script>
