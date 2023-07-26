@@ -317,7 +317,7 @@ def get_chart_data():
         'id': id,
         'estado' : 0
     }
-    return render_template('prestamos/graficoduro.html',data=data)
+    return render_template('prestamos/graficoduro2.html',data=data)
     #redirect('prestamos/asistencia')                 
 
 """ 
