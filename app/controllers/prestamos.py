@@ -1,4 +1,4 @@
-"""Prestamos controllers."""
+"""Prestamos controllers. version 20232607 22:38 """
 
 # App config
 from app import app
@@ -368,7 +368,7 @@ def get_chart_data():
         cantidad_activos = result["cantidad_activos_entregados"]
 
         # Obtener el índice del mes en la lista "meses"
-        indice_mes = mes
+        indice_mes = mes-1
         print(f"\n::::::::::::::::::::::::indice_mes::::::::::::::::::::::::\n {indice_mes}")
 
         # Obtener el índice de la fila correspondiente a la familia
@@ -376,15 +376,18 @@ def get_chart_data():
         print(f"\n::::::::::::::::::::::::indice_familia::::::::::::::::::::::::\n {indice_familia}")
 
         # Poblar la matriz con la cantidad de activos entregados en la posición correcta
+        
+        print(num_filas)
+        print(num_columnas )
         for i in range(num_filas):
             for j in range(num_columnas):
                 if i == indice_familia and j == indice_mes:
-                    data[i][j - 1] = cantidad_activos
-
+                    data[i][j] = cantidad_activos
         print(f"\n::::::::::::::::::::::::data::::::::::::::::::::::::\n {data}")
 
     # Insertar la lista de nombres de meses como primer elemento de "data"
-        data.insert(0, meses)
+    data.insert(0, meses)
+    print(f"\n::::::::::::::::::::::::data con meses ::::::::::::::::::::::::\n {data}")
 
     return render_template(
         'prestamos/graficoduro2.html',
@@ -392,7 +395,7 @@ def get_chart_data():
         fa_anio=data )
 
 
-""" 
+""" ++++++
     # print("cursor = connection.cursor()")
 
     # Realizar la consulta a la base de datos
