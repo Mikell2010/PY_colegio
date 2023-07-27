@@ -353,11 +353,19 @@ def get_chart_data():
     # Crear una matriz de ceros con 12 columnas y una fila por cada familia
     num_filas = len(results)  # 4
     print(f"\n::::::::::::::::::::::::num_filas en console::::::::::::::::::::::::\n {num_filas}")
-
+    datafam=[" " * num_filas for _ in range(num_filas)]
     num_columnas = 12
     data = [[0] * num_columnas for _ in range(num_filas)]
 
     print(f"\n::::::::::::::::::::::::data::::::::::::::::::::::::\n {data}")
+    print(f"\n::::::::::::::::::::::::data::::::::::::::::::::::::\n {datafam}")
+
+    # Poblar la matriz con los nombres de las familias
+    i=0
+    for result in results:
+        nombre_familia = result["nombre_familia"]        
+        datafam[i] = nombre_familia
+        i=i+1
 
     # Poblar los datos de la consulta en la matriz
     for result in results:
@@ -366,7 +374,7 @@ def get_chart_data():
         mes = result["mes"]
         familia_id = result["familia_id"]
         cantidad_activos = result["cantidad_activos_entregados"]
-
+        nombre_familia = result["nombre_familia"]
         # Obtener el índice del mes en la lista "meses"
         indice_mes = mes-1
         print(f"\n::::::::::::::::::::::::indice_mes::::::::::::::::::::::::\n {indice_mes}")
@@ -379,11 +387,14 @@ def get_chart_data():
         
         print(num_filas)
         print(num_columnas )
-        for i in range(num_filas):
-            for j in range(num_columnas):
+         
+        
+        for i in range(num_filas):        
+            for j in range(num_columnas):                
                 if i == indice_familia and j == indice_mes:
                     data[i][j] = cantidad_activos
         print(f"\n::::::::::::::::::::::::data::::::::::::::::::::::::\n {data}")
+        print(f"\n::::::::::::::::::::::::data::::::::::::::::::::::::\n {datafam}")
 
     # Insertar la lista de nombres de meses como primer elemento de "data"
     data.insert(0, meses)
@@ -392,7 +403,8 @@ def get_chart_data():
     return render_template(
         'prestamos/graficoduro2.html',
         paso=data1,
-        fa_anio=data )
+        fa_anio=data,
+        datafam=datafam )
 
 
 """ ++++++

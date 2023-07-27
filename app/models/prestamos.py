@@ -204,10 +204,10 @@ class Prestamos:
 # en desarrollo!
     @classmethod
     def get_historico_por_familia(cls,data):   # Recibe data
-        ##    %(id)s
-        print(" imprime la anio")
+        
+        print(" imprime la anio  ::::::::::::::::::::::::")
         print(data)
-        print(f"DATA: %(anio)s")
+        print(f"DATA: %('anio')s")
         
         sql = """
             SELECT 
