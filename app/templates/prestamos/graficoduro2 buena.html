@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <canvas id="myChart"></canvas>
+    <script>      
+        var data = {{ fa_anio | tojson }};
+        var datafam = {{ datafam | tojson }};
+        var tip = {{ paso.grafico | tojson }};
+        var coloresBorde = [
+        'rgba(244, 10, 10, 1)',
+        'rgba(10, 244, 10, 1)',
+        'rgba(10 10, 244, 1)',
+        'rgba(90, 99, 132, 1)',
+        'rgba(120, 99, 132, 1)',
+        'rgba(150, 99, 132, 1)',
+        'rgba(180, 99, 132, 1)',
+        'rgba(210, 99, 132, 1)',
+        'rgba(240, 99, 132, 1)'
+        ];
+    
+        console.log(JSON.stringify(data)) 
+        console.log(JSON.stringify(tip))
+        console.log(JSON.stringify(datafam))
+
+        var meses = data[0];valores
+      
+        
+
+
+        var valores = data.slice(1);
+        console.log("Valor de data:", data);
+        console.log("Valor de tip:", tip);
+        console.log("Valor de meses:", meses);
+        console.log("Valor de valores:", valores);
+
+        // Crear un contexto para el gráfico
+        var ctx = document.getElementById('myChart').getContext('2d');
+
+        // Crear la configuración del gráfico
+        var chartConfig = {
+            type: tip,   
+            data: {
+                labels: meses,
+                datasets: []
+            },
+            options: {
+                responsive: true,
+                title: {
+                    display: true,
+                    text: 'N° Préstamos Mensuales'
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        };
+
+        // Agregar las series al gráfico
+        
+        
+        for (var i = 0; i < valores.length; i++) {
+            
+            var dataset = {
+                label: datafam[i] ,
+                backgroundColor: coloresBorde[i % coloresBorde.length],
+                borderColor: coloresBorde[i % coloresBorde.length],
+                data: valores[i]
+            }
+            chartConfig.data.datasets.push(dataset);
+        }
+
+        // Crear el gráfico
+        new Chart(ctx, chartConfig);
+
+        
+    </script>
+</body>
+</html>
