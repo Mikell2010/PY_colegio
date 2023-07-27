@@ -4,20 +4,33 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <canvas id="myChart"></canvas>
+    <canvas id="myChart" width="800px" height="500px"></canvas>
+
+    
     <script>      
         var data = {{ fa_anio | tojson }};
         var datafam = {{ datafam | tojson }};
         var tip = {{ paso.grafico | tojson }};
-        var coloresBorde = [
-        'rgba(244, 10, 10, 1)',
-        'rgba(10, 244, 10, 1)',
-        'rgba(10 10, 244, 1)',
-        'rgba(90, 99, 132, 1)',
-        'rgba(120, 99, 132, 1)',
+        var coloresFondo = [
+        'rgba(46,6,92, 0.6)',
+        'rgba(10,115,115, 1)',
+        'rgba(183,191,103, 1)',
+        'rgba(237,170,37, 1)',
+        'rgba(196, 51, 2, 1)',
         'rgba(150, 99, 132, 1)',
         'rgba(180, 99, 132, 1)',
         'rgba(210, 99, 132, 1)',
+        'rgba(240, 99, 132, 1)'
+        ];
+        var coloresBorde = [
+        'rgba(92,12,184, 0.6)',
+        'rgba(20,230,230, 1)',
+        'rgba(366,382,206, 1)',
+        'rgba(237,170,37, 1)',
+        'rgba(392, 102, 4, 1)',
+        'rgba(150, 99, 264, 1)',
+        'rgba(180, 99, 264, 1)',
+        'rgba(210, 99, 267, 1)',
         'rgba(240, 99, 132, 1)'
         ];
     
@@ -26,10 +39,6 @@
         console.log(JSON.stringify(datafam))
 
         var meses = data[0];valores
-      
-        
-
-
         var valores = data.slice(1);
         console.log("Valor de data:", data);
         console.log("Valor de tip:", tip);
@@ -37,7 +46,11 @@
         console.log("Valor de valores:", valores);
 
         // Crear un contexto para el gráfico
+
+        
         var ctx = document.getElementById('myChart').getContext('2d');
+
+        
 
         // Crear la configuración del gráfico
         var chartConfig = {
@@ -69,7 +82,7 @@
             
             var dataset = {
                 label: datafam[i] ,
-                backgroundColor: coloresBorde[i % coloresBorde.length],
+                backgroundColor: coloresFondo[i % coloresFondo.length],
                 borderColor: coloresBorde[i % coloresBorde.length],
                 data: valores[i]
             }

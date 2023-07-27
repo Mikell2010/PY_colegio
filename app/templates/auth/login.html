@@ -2,6 +2,7 @@
 {% block titulo %}Bienvenidos->Login {% endblock %}
 
 {% block contenido %}
+
     <div class="offset-lg-2 col-lg-4 col-md-6 col-sm-12">
         <h2 class="title">Ingreso al sistema</h2>
         <form action="/procesar_login" method="post">
@@ -16,4 +17,58 @@
         </form>
     </div>
 </div>
-{% endblock %}
+
+<footer class="footer">
+
+    <div class="container-fluid">
+        <div class="row p-5 bg-dark text-white">
+            
+            <div class="col-xs-12 col-md-6 col-lg-3">
+                <p class="h3">SIP</p>
+                <p class="text-secondary">Arturo Matte Larraín, San Ramón, RM</p>
+                <p class="text-secondary">Casa Matriz</p>
+            </div>
+            <div class="col-xs-12 col-md-6 col-lg-3">
+                <p class="h5 mb-3">Niveles</p>
+                <div class="mb-2">
+                    <a class="text-secondary text-decoration-none" >Basica</a>
+    
+                </div>
+                <div class="mb-2">
+                    <a class="text-secondary text-decoration-none" >Media</a>
+    
+                </div>
+            </div>    
+            <div class="col-xs-12 col-md-6 col-lg-3">
+                <p class="h5 mb-3">Acceso Web</p>
+                <div class="mb-2">
+                    <a class="text-secondary text-decoration-none" href="https://www.arturomattelarrain.cl/">Colegio</a>
+    
+                </div>
+                <div class="mb-2">
+                    <a class="text-secondary text-decoration-none" href="https://www.sip.cl/">Sociedad de Instrucción Primaria</a>
+    
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-6 col-lg-3">
+                <p class="h5 mb-3">Redes Sociales</p>
+                <div class="mb-2">
+                    <a class="text-secondary text-decoration-none" href="https://www.instagram.com/sip_colegios/?hl=es">Instagram</a>
+    
+                </div>
+                <div class="mb-2">
+                    <a class="text-secondary text-decoration-none" href="https://web.facebook.com/sipreddecolegios/?locale=es_LA&_rdc=1&_rdr">Facebook</a>
+    
+                </div>
+            </div>
+    
+        </div>
+        <div class="row bg-dark text-white">
+            <div class="col-12 text-center">
+                <p class="mb-0">© 2021 SIP. Todos los derechos reservados</p>
+            </div>
+    </div>
+    
+</footer>
+    {% endblock %}
+
