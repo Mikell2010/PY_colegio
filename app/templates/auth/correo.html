@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Correo Electrónico</title>
+</head>
+<body>
+    <p>¡Hola!</p>
+    
+    Se ha contactado por la plataforma de Prestamos el usuario:
+    {{session.usuario.nombres}} {{session.usuario.apellido_p}} {{session.usuario.apellido_m}} 
+    
+    Información: 
+                    El estado de bloqueo es: {{session.usuario.bloqueo }}
+
+    <p>Este correo tiene por objeto crear instancaias de mejora en nuestros procesos,</p>
+    <p>favor contactarse a la brevedar con el usuario.</p>
+
+    <p>¡Gracias por seguir construyendo !</p>
+
+    <p>Atentamente,</p>
+    <p>Dirección </p>
+    <div>
+        <img src="https://www.arturomattelarrain.cl/wp-content/uploads/2023/01/AML.png" width="175" height="175" alt="Pie de firma" >
+
+    </div>
+</body>
+</html>

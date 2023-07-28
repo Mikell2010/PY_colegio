@@ -4,7 +4,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <canvas id="myChart" width="800px" height="500px"></canvas>
+    <canvas id="myChart" width="100px" height="90px"></canvas>
 
     
     <script>      
@@ -12,8 +12,8 @@
         var datafam = {{ datafam | tojson }};
         var tip = {{ paso.grafico | tojson }};
         var coloresFondo = [
-        'rgba(46,6,92, 0.6)',
-        'rgba(10,115,115, 1)',
+        'rgba(255,6,92, 0.6)',
+        'rgba(255,115,115, 1)',
         'rgba(183,191,103, 1)',
         'rgba(237,170,37, 1)',
         'rgba(196, 51, 2, 1)',
@@ -23,9 +23,9 @@
         'rgba(240, 99, 132, 1)'
         ];
         var coloresBorde = [
-        'rgba(92,12,184, 0.6)',
+        'rgba(92,12,255, 0.6)',
         'rgba(20,230,230, 1)',
-        'rgba(366,382,206, 1)',
+        'rgba(255,382,206, 1)',
         'rgba(237,170,37, 1)',
         'rgba(392, 102, 4, 1)',
         'rgba(150, 99, 264, 1)',
@@ -53,6 +53,36 @@
         
 
         // Crear la configuración del gráfico
+
+      
+
+var chartConfig = {
+    type: 'tip',   
+    data: {
+        labels: meses,
+        datasets: []
+    },
+    options: {
+        responsive: true, // Permitir que el gráfico se ajuste al tamaño del contenedor
+        maintainAspectRatio: false, // Desactivar el mantenimiento del aspect ratio
+        title: {
+            display: true,
+            text: 'N° Préstamos Mensuales'
+        },
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        },
+        // Especificar el tamaño del gráfico
+        width: 400, // Ancho en píxeles
+        height: 300 // Alto en píxeles
+    }
+};
+
+
         var chartConfig = {
             type: tip,   
             data: {
