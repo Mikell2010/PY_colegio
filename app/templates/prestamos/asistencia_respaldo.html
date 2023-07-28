@@ -71,58 +71,6 @@
     <div class="col-md-12">
         <!-- Formulario -->
         <form action="/prestamos/graficar" method="post" class="needs-validation bg-ligh">
-           
-            <div class="container px-4">
-                <div class="row gx-4">
-                  <div class="col">
-                   <div class="p-3 border bg-light">Selecciona Tipo de Gráfico:
-
-
-                   <label for="tipos"></label>
-                    <select id="grafico" name="grafico">
-                        <option value="line">LINEAS</option>
-                        <option value="bar">BARRAS</option>
-                        <option value="radar">RADAR</option>
-                    </select>
-                </div>
-
-
-                  </div>
-                  <div class="col">
-                    <div class="p-3 border bg-light">Selecciona una o todas las familias
-
-                    <label class="custom-select d-block w-300" for="yearInput"></label>
-                    <select name="familia_id" class="custom-select d-block w-300" id="selectActivos">
-                        <option value="">Todas las Familias</option>
-                        {% for familia in familias %}
-                        <option value="{{ familia.id }}"> {{ familia.nombre }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-
-                </div>
-                <div class="col">
-                  <div class="p-3 border bg-light">Selecciona un año:
-
-
-                  
-                  <label class="custom-select d-block w-300 required " for="yearInput" ></label>
-                  <input type="number" id="yearInput" name="anio" required max="2025" min="2022">
-
-                </div>
-                  </div>
-                </div>
-              </div>
-           
-           
-           
-           
-           
-           
-           
-           
-           
-           
             <div class="row">
                 {% if session.usuario.bloqueo == '3' %}
                 <h1 class="rojoblink">Estas Bloqueado </h1>
@@ -134,11 +82,25 @@
 
 
 
+
                 <div class="col-sm-12 col-md-8 col-lg-6">
-                    
-                    
+                    <label for="tipos">Tipo de Gráfico:</label>
+                    <select id="grafico" name="grafico">
+                        <option value="line">LINEAS</option>
+                        <option value="bar">BARRAS</option>
+                        <option value="radar">RADAR</option>
+                    </select>
+                    <label class="custom-select d-block w-300" for="yearInput">Selecciona una o todas las familias</label>
+                    <select name="familia_id" class="custom-select d-block w-300" id="selectActivos">
+                        <option value="">Todas las Familias</option>
+                        {% for familia in familias %}
+                        <option value="{{ familia.id }}"> {{ familia.nombre }}</option>
+                        {% endfor %}
+                    </select>
                         <div class="col-sm-12 col-md-6 col-lg-4">
                         
+                            <label class="custom-select d-block w-300 required " for="yearInput" >Selecciona un año:</label>
+                            <input type="number" id="yearInput" name="anio" required max="2025" min="2022">
                         </div>
                         <!-- <div class="row">
                             <label for="fecha_inicio" class="form-label">Fecha Inicio</label>
@@ -176,4 +138,11 @@
 
     <div class="dropdown">
         <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-          
+          Dropdown button
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="#">Action</a></li>
+          <li><a class="dropdown-item" href="#">Another action</a></li>
+          <li><a class="dropdown-item" href="#">Something else here</a></li>
+        </ul>
+      </div>

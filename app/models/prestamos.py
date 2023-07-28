@@ -203,11 +203,7 @@ class Prestamos:
 # SELECCIONA TODOS PRESTAMOS HISTORICOS POR CONTANDO POR MES Y POR FAMILIA EN UN AÑO DEL SISTEMA
 # en desarrollo!
     @classmethod
-    def get_historico_por_familia(cls,data):   # Recibe data
-        
-        print(" imprime la anio  ::::::::::::::::::::::::")
-        print(data)
-        print(f"DATA: %('anio')s")
+    def get_historico_por_familia(cls, data):
         
         sql = """
             SELECT 
@@ -219,8 +215,27 @@ class Prestamos:
             FROM prestamos p
             INNER JOIN activos a ON p.activos_id = a.id
             INNER JOIN familias f ON a.familia_id = f.id
-            WHERE EXTRACT(YEAR FROM p.fecha_entrega) = '2023'  
+            WHERE EXTRACT(YEAR FROM p.fecha_entrega) = %(anio)s
             GROUP BY EXTRACT(YEAR FROM p.fecha_entrega), EXTRACT(MONTH FROM p.fecha_entrega), f.id, f.nombre
             ORDER BY anio, mes, familia_id;
         """
-        return connectToMySQL(os.getenv("BASE_DE_DATOS")).query_db(sql)         
+        return connectToMySQL(os.getenv("BASE_DE_DATOS")).query_db(sql, data)  
+    @classmethod
+    def get_historico_por_una_familia(cls, data):
+        
+        sql = """
+            SELECT 
+            EXTRACT(YEAR FROM p.fecha_entrega) AS anio,
+            EXTRACT(MONTH FROM p.fecha_entrega) AS mes,
+            f.id AS familia_id,
+            f.nombre AS nombre_familia,
+            COUNT(*) AS cantidad_activos_entregados
+            FROM prestamos p
+            INNER JOIN activos a ON p.activos_id = a.id
+            INNER JOIN familias f ON a.familia_id = f.id
+            WHERE EXTRACT(YEAR FROM p.fecha_entrega) = %(anio)s
+                AND f.id = %(familia_id)s  -- Reemplaza TU_ID_DE_FAMILIA por el ID de la familia deseada
+            GROUP BY EXTRACT(YEAR FROM p.fecha_entrega), EXTRACT(MONTH FROM p.fecha_entrega), f.id, f.nombre
+            ORDER BY anio, mes, familia_id;       
+            """
+        return connectToMySQL(os.getenv("BASE_DE_DATOS")).query_db(sql, data)        

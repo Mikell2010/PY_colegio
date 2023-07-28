@@ -323,78 +323,136 @@ def get_chart_data():
         'grafico': request.form['grafico'],
         'familia_id': request.form['familia_id'],
         'anio': request.form['anio'],
-        'fecha_inicio': request.form['fecha_inicio'],
-        'fecha_termino': request.form['fecha_termino'],
+        
     }
+        # 'fecha_inicio': request.form['fecha_inicio'],
+        # 'fecha_termino': request.form['fecha_termino'],
+    
+    meses: list = [
+            "enero",
+            "febrero",
+            "marzo",
+            "abril",
+            "mayo", 
+            "junio",
+            "julio",
+            "agosto",
+            "septiembre",
+            "octubre",
+            "noviembre",
+            "diciembre"
+            ]
 
+
+    if request.form['familia_id'] == '':
+        print(" viene sin numero")    
+        datos_familia_por_anio = Prestamos.get_historico_por_familia(data1)
+        results=datos_familia_por_anio
+    else:
+        datos_familia_por_anio_fam = Prestamos.get_historico_por_una_familia(data1)
+        results=datos_familia_por_anio_fam
+    
     print(" imprime la data 1 que viene de graficoduro2.html")
     print(f"DATA: {data1}")
-
-    datos_familia_por_anio=Prestamos.get_historico_por_familia(data1)
-    results=datos_familia_por_anio
-
     print(f"\n::::::::::::::::::::::::results::::::::::::::::::::::::\n {results}")
 
-    meses: list = [
-        "enero",
-        "febrero",
-        "marzo",
-        "abril",
-        "mayo", 
-        "junio",
-        "julio",
-        "agosto",
-        "septiembre",
-        "octubre",
-        "noviembre",
-        "diciembre"
-    ]
-
-    # Crear una matriz de ceros con 12 columnas y una fila por cada familia
-    num_filas = len(results)  # 4
-    print(f"\n::::::::::::::::::::::::num_filas en console::::::::::::::::::::::::\n {num_filas}")
-    datafam=[" " * num_filas for _ in range(num_filas)]
-    num_columnas = 12
-    data = [[0] * num_columnas for _ in range(num_filas)]
-
-    print(f"\n::::::::::::::::::::::::data::::::::::::::::::::::::\n {data}")
-    print(f"\n::::::::::::::::::::::::data::::::::::::::::::::::::\n {datafam}")
-
-    # Poblar la matriz con los nombres de las familias
-    i=0
-    for result in results:
-        nombre_familia = result["nombre_familia"]        
-        datafam[i] = nombre_familia
-        i=i+1
-
-    # Poblar los datos de la consulta en la matriz
-    for result in results:
-    
-        print(f"\n::::::::::::::::::::::::result::::::::::::::::::::::::\n {result}")
-        mes = result["mes"]
-        familia_id = result["familia_id"]
-        cantidad_activos = result["cantidad_activos_entregados"]
-        nombre_familia = result["nombre_familia"]
-        # Obtener el índice del mes en la lista "meses"
-        indice_mes = mes-1
-        print(f"\n::::::::::::::::::::::::indice_mes::::::::::::::::::::::::\n {indice_mes}")
-
-        # Obtener el índice de la fila correspondiente a la familia
-        indice_familia = familia_id - 1
-        print(f"\n::::::::::::::::::::::::indice_familia::::::::::::::::::::::::\n {indice_familia}")
-
-        # Poblar la matriz con la cantidad de activos entregados en la posición correcta
+    if request.form['familia_id'] != '':
         
-        print(num_filas)
-        print(num_columnas )
-         
-        
-        for i in range(num_filas):        
-            for j in range(num_columnas):                
-                if i == indice_familia and j == indice_mes:
-                    data[i][j] = cantidad_activos
+        # Crear una matriz de ceros con 12 columnas y una fila por cada familia
+        num_filas = len(results)  # 4
+        print(f"\n::::::::::::::::::::::::num_filas en console::::::::::::::::::::::::\n {num_filas}")
+        datafam=[" " * num_filas for _ in range(num_filas)]
+        num_columnas = 12
+        data = [[0] * num_columnas for _ in range(num_filas)]
+
         print(f"\n::::::::::::::::::::::::data::::::::::::::::::::::::\n {data}")
         print(f"\n::::::::::::::::::::::::data::::::::::::::::::::::::\n {datafam}")
+
+        # Poblar la matriz con los nombres de las familias
+        i=0
+        for result in results:
+            nombre_familia = result["nombre_familia"]        
+            datafam[i] = nombre_familia
+            i=i+1
+
+        
+        # Poblar los datos de la consulta en la matriz
+        for result in results:
+        
+            print(f"\n::::::::::::::::::::::::result::::::::::::::::::::::::\n {result}")
+            mes = result["mes"]
+            familia_id = result["familia_id"]
+            cantidad_activos = result["cantidad_activos_entregados"]
+            nombre_familia = result["nombre_familia"]
+            # Obtener el índice del mes en la lista "meses"
+            indice_mes = mes-1
+            print(f"\n::::::::::::::::::::::::indice_mes::::::::::::::::::::::::\n {indice_mes}")
+
+            # # Obtener el índice de la fila correspondiente a la familia
+            # indice_familia = familia_id - 1
+            # print(f"\n::::::::::::::::::::::::indice_familia::::::::::::::::::::::::\n {indice_familia}")
+
+            # Poblar la matriz con la cantidad de activos entregados en la posición correcta
+            
+            print(num_filas)
+            print(num_columnas )
+            
+            
+            # for i in range(num_filas):        
+            for j in range(num_columnas):                
+                if  j == indice_mes:
+                    data[0][j] = cantidad_activos
+            print(f"\n::::::::::::::::::::::::data::::::::::::::::::::::::\n {data}")
+            print(f"\n::::::::::::::::::::::::data::::::::::::::::::::::::\n {datafam}")
+   
+    else:
+        
+        # Crear una matriz de ceros con 12 columnas y una fila por cada familia
+        num_filas = len(results)  # 4
+        print(f"\n::::::::::::::::::::::::num_filas en console::::::::::::::::::::::::\n {num_filas}")
+        datafam=[" " * num_filas for _ in range(num_filas)]
+        num_columnas = 12
+        data = [[0] * num_columnas for _ in range(num_filas)]
+
+        print(f"\n::::::::::::::::::::::::data::::::::::::::::::::::::\n {data}")
+        print(f"\n::::::::::::::::::::::::data::::::::::::::::::::::::\n {datafam}")
+
+        # Poblar la matriz con los nombres de las familias
+        i=0
+        for result in results:
+            nombre_familia = result["nombre_familia"]        
+            datafam[i] = nombre_familia
+            i=i+1
+
+        
+        # Poblar los datos de la consulta en la matriz
+        for result in results:
+        
+            print(f"\n::::::::::::::::::::::::result::::::::::::::::::::::::\n {result}")
+            mes = result["mes"]
+            familia_id = result["familia_id"]
+            cantidad_activos = result["cantidad_activos_entregados"]
+            nombre_familia = result["nombre_familia"]
+            # Obtener el índice del mes en la lista "meses"
+            indice_mes = mes-1
+            print(f"\n::::::::::::::::::::::::indice_mes::::::::::::::::::::::::\n {indice_mes}")
+
+            # Obtener el índice de la fila correspondiente a la familia
+            indice_familia = familia_id - 1
+            print(f"\n::::::::::::::::::::::::indice_familia::::::::::::::::::::::::\n {indice_familia}")
+
+            # Poblar la matriz con la cantidad de activos entregados en la posición correcta
+            
+            print(num_filas)
+            print(num_columnas )
+            
+            
+            for i in range(num_filas):        
+                for j in range(num_columnas):                
+                    if i == indice_familia and j == indice_mes:
+                        data[i][j] = cantidad_activos
+            print(f"\n::::::::::::::::::::::::data::::::::::::::::::::::::\n {data}")
+            print(f"\n::::::::::::::::::::::::data::::::::::::::::::::::::\n {datafam}")
 
     # Insertar la lista de nombres de meses como primer elemento de "data"
     data.insert(0, meses)

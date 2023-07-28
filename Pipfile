@@ -17,6 +17,7 @@ matplotlib = "*"
 pandas = "*"
 it = "*"
 lxml = "*"
+flask-mail = "*"
 
 [dev-packages]
 

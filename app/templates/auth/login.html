@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% block titulo %}Bienvenidos->Login {% endblock %}
-
 {% block contenido %}
+
     <div class="offset-lg-2 col-lg-4 col-md-6 col-sm-12">
-        <h2 class="title">Ingreso al sistema</h2>
+        <h2 class="title">Ingreso al Sistema</h2>
         <form action="/procesar_login" method="post">
 
             <div class="mb-3">
@@ -11,9 +11,69 @@
                 <input type="email" class="form-control" id="exampleInputEmail2" aria-describedby="emailHelp" name="email">
                 <div id="emailHelp" class="form-text">Ingresa tu correo institucional (SIP).</div>
             </div>
-            
+
             <button type="submit" class="btn btn-primary">Entrar al Sistema!</button>
         </form>
     </div>
 </div>
-{% endblock %}
+
+<footer class="footer">
+
+    <div class="container-fluid">
+        <div class="row p-5 bg-dark text-white">
+            
+            <div class="col-xs-6 col-md-6 col-lg-3">
+                <p class="h3">SIP</p>
+                <!-- <img src="/static/img/descarga.png" width="35" height="35"/> -->
+                <p class="text-secondary">Arturo Matte Larraín, San Ramón, RM</p>
+                <p class="text-secondary">Casa Matriz</p>
+            </div>
+            <div class="col-xs-12 col-md-6 col-lg-3">
+                <p class="h5 mb-3">Niveles</p>
+                <div class="mb-2">
+                    <a class="text-secondary text-decoration-none" >Basica</a>
+    
+                </div>
+                <div class="mb-2">
+                    <a class="text-secondary text-decoration-none" >Media</a>
+    
+                </div>
+            </div>    
+            <div class="col-xs-12 col-md-6 col-lg-3">
+                <p class="h5 mb-3">Acceso Web</p>
+                <div class="mb-2">
+                    <a class="text-secondary text-decoration-none" href="https://www.arturomattelarrain.cl/">Colegio</a>
+    
+                </div>
+                <div class="mb-2">
+                    <a class="text-secondary text-decoration-none" href="https://www.sip.cl/">Sociedad de Instrucción Primaria</a>
+    
+                </div>
+                <!-- <div class="mb-2">
+                    <a class="text-secondary text-decoration-none" href="/enviar_mail">Enviar Correo</a>
+    
+                </div> -->
+            </div>
+            <div class="col-xs-12 col-md-6 col-lg-3">
+                <p class="h5 mb-3">Redes Sociales</p>
+                <div class="mb-2">
+                    <a class="text-secondary text-decoration-none" href="https://www.instagram.com/sip_colegios/?hl=es">Instagram</a>
+                    <img src="/static/img/instagram.png" width="25" height="25"/>
+                </div>
+                <div class="mb-2">
+                    <a class="text-secondary text-decoration-none" href="https://web.facebook.com/sipreddecolegios/?locale=es_LA&_rdc=1&_rdr">Facebook</a>
+                    <img src="/static/img/facebook.png" width="25" height="25"/>
+                </div>
+            </div>
+    
+        </div>
+        <div class="row bg-dark text-white">
+            <div class="col-12 text-center">
+                <p class="mb-0">© 2023 SIP. Todos los derechos reservados</p>
+            </div>
+    </div>
+    
+</footer>
+
+
+    {% endblock %}
